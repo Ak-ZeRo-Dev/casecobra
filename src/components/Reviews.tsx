@@ -6,25 +6,25 @@ import React, { useEffect, useRef, useState } from "react";
 import QuestionPeople from "../../public/what-people-are-buying.png";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Phone from "./Phone";
-type Props = {};
+
 type ReviewColumProps = {
   reviews: string[];
   className?: string;
   reviewClassName?: (reviewIndex: number) => string;
   msPerPixel?: number;
 };
+
 interface ReviewProps extends React.HTMLAttributes<HTMLDivElement> {
   imgSrc: string;
 }
 
-const PHONES = [
-  "/testimonials/1.jpg",
-  "/testimonials/2.jpg",
-  "/testimonials/3.jpg",
-  "/testimonials/4.jpg",
-  "/testimonials/5.jpg",
-  "/testimonials/6.jpg",
-];
+const images = (num: number): string[] => {
+  const result: string[] = [];
+  for (let i = 1; i <= num; i++) result.push(`/testimonials/${i}.jpg`);
+  return result;
+};
+
+const PHONES = images(6);
 
 function splitArray<T>(array: Array<T>, size: number) {
   const result: Array<Array<T>> = [];
@@ -150,7 +150,7 @@ const ReviewGrid = () => {
   );
 };
 
-const Reviews = (props: Props) => {
+const Reviews = () => {
   return (
     <MaxWidthWrapper className="relative max-w-5xl">
       <Image

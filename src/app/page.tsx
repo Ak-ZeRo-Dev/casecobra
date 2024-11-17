@@ -15,6 +15,7 @@ import snake2 from "../../public/snake-2.png";
 import your_image from "../../public/your-image.png";
 import line from "../../public/line.png";
 
+//  FIXME edit w and h for images
 const items = [
   "High-quality, durable material",
   "5 year print guarantee",
@@ -164,9 +165,7 @@ export default function Home() {
             <Image
               src={snake2}
               alt="snake"
-              width={100}
-              height={100}
-              className="order-0 lg:order-2"
+              className="order-0 lg:order-2 w-24 h-24"
             />
           </div>
 
