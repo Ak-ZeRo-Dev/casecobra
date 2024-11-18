@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Confetti from "react-dom-confetti";
-import Phone from "./Phone";
+import Phone from "@/components/Phone";
 import { Configuration } from "@prisma/client";
 import { COLORS, FINISHES, MODELS } from "@/validator/option-validator";
 import { cn, formatPrice } from "@/lib/utils";
 import { ArrowRight, Check } from "lucide-react";
 import { BASE_PRICE, PRODUCT_PRICES } from "@/config/products";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 import { createCheckoutSession } from "@/app/configure/preview/actions";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import LoginModal from "./LoginModal";
+import LoginModal from "@/components/LoginModal";
 
 type Props = {
   configuration: Configuration;
@@ -57,7 +57,7 @@ const DesignPreview = ({ configuration }: Props) => {
     totalPrice += PRODUCT_PRICES.material.polycarbonate;
   if (finish === "textured") totalPrice += PRODUCT_PRICES.finish.textured;
 
-  const { mutate: createPaymentSession } = useMutation({
+  const { mutate: createPaymentSession, isPending } = useMutation({
     mutationKey: ["get-checkout-session"],
     mutationFn: createCheckoutSession,
     onSuccess: ({ url }) => {
@@ -170,9 +170,9 @@ const DesignPreview = ({ configuration }: Props) => {
 
             <div className="mt-8 flex justify-end pb-12">
               <Button
-                // disabled={isLoading}
-                // isLoading={isLoading}
-                loadingText="Loading"
+                disabled={isPending}
+                isLoading={isPending}
+                loadingText="Saving"
                 className="px-4 sm:px-6 lg:px-8"
                 onClick={handleCheckout}
               >

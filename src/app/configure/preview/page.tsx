@@ -1,4 +1,4 @@
-import DesignPreview from "@/components/DesignPreview";
+import DesignPreview from "./DesignPreview";
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 

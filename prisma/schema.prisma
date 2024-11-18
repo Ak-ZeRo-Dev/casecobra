@@ -8,7 +8,7 @@ datasource db {
 }
 
 enum OrderStatus {
-  fulfield
+  fulfilled
   shipped
   awaiting_shipment
 }

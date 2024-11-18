@@ -10,17 +10,17 @@ import { RadioGroup } from "@headlessui/react";
 import NextImage from "next/image";
 import { useRef, useState, useTransition } from "react";
 import { Rnd } from "react-rnd";
-import phone_template from "../../public/phone-template.png";
-import { AspectRatio } from "./ui/aspect-ratio";
-import { Label } from "./ui/label";
-import { ScrollArea } from "./ui/scroll-area";
+import phone_template from "../../../../public/phone-template.png";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   Check,
@@ -63,7 +63,6 @@ const HandleComponent = () => (
 const DesignConfigurator = ({ configId, url, dimensions }: Props) => {
   const { toast } = useToast();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [options, setOptions] = useState<optionsType>({
     color: COLORS[0],
@@ -132,7 +131,10 @@ const DesignConfigurator = ({ configId, url, dimensions }: Props) => {
       const base64Data = base64.split(",")[1];
 
       const blob = base64ToBlob(base64Data, "image/png");
-      const file = new File([blob], "filename.png", { type: "image/png" });
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      const file = new File([blob], `${uniqueSuffix}.png`, {
+        type: "image/png",
+      });
 
       await startUpload([file], { configId });
     } catch (error) {
@@ -155,10 +157,9 @@ const DesignConfigurator = ({ configId, url, dimensions }: Props) => {
     return new Blob([byteArray], { type });
   };
 
-  const { mutate: saveConfig } = useMutation({
+  const { mutate: saveConfig, isPending } = useMutation({
     mutationKey: ["save-configuration"],
     mutationFn: async (args: SaveConfigArgs) => {
-      setIsLoading(true);
       await Promise.all([saveConfiguration(), _saveConfig(args)]);
     },
     onError: () => {
@@ -169,7 +170,6 @@ const DesignConfigurator = ({ configId, url, dimensions }: Props) => {
       });
     },
     onSuccess: () => {
-      setIsLoading(false);
       router.push(`/configure/preview?id=${configId}`);
     },
   });
@@ -414,9 +414,9 @@ const DesignConfigurator = ({ configId, url, dimensions }: Props) => {
                 )}
               </p>
               <Button
-                disabled={isLoading}
-                isLoading={isLoading}
-                loadingText="Loading"
+                disabled={isPending}
+                isLoading={isPending}
+                loadingText="Saving"
                 size="sm"
                 className="w-full "
                 onClick={() =>
