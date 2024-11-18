@@ -1,4 +1,4 @@
-import DesignConfigurator from "@/components/DesignConfigurator";
+import DesignConfigurator from "./DesignConfigurator";
 import { db } from "@/db";
 import { notFound } from "next/navigation";
 import React from "react";

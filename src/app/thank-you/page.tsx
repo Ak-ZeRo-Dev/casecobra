@@ -1,7 +1,16 @@
-import React from "react";
+import { Suspense } from "react";
+import ThankYou from "./ThankYou";
 
-const page = () => {
-  return <div>page</div>;
+const Page = ({
+  searchParams: { orderId },
+}: {
+  searchParams: { orderId: string };
+}) => {
+  return (
+    <Suspense>
+      <ThankYou orderId={orderId || ""} />
+    </Suspense>
+  );
 };
 
-export default page;
+export default Page;
