@@ -9,7 +9,7 @@ import { constructMetadata } from "@/lib/utils";
 
 const recursive = Recursive({ subsets: ["latin"] });
 
-export const metadata = constructMetadata();
+export const metadata: Metadata = constructMetadata();
 
 export default function RootLayout({
   children,
