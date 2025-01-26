@@ -70,7 +70,8 @@ pnpm dev
 ## ✍️ Author
 
 **Abdul Rahman Mahmoud Saeed Muhammad Al-Kurdi**
-**_Ak-ZeRo_**
+
+***Ak-ZeRo***
 
 - 💼 **[Portfolio](https://ak-zero.vercel.app)**
 - 📧 **[abdulrahman.mahmoud.alkurdi@gmail.com](mailto:abdulrahman.mahmoud.alkurdi@gmail.com)**
